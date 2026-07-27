@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { type } from 'node:os';
 mongoose.connect('mongodb://localhost:27017/aspirasi');
 import { title } from "node:process";
 
@@ -10,7 +11,13 @@ const aduanSchema = new Schema({
     nim: String,
     nohp: String,
     kelas: String,
-    aduan: [{isi: String,date: Date}]
+    aduan: [{
+        isi: String,
+        date: {
+            type: Date,
+            default: Date.now(),
+        }
+    }]
 });
 
 export const aduan = mongoose.model('aduan', aduanSchema);

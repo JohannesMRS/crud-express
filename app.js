@@ -13,6 +13,7 @@ const port = 3000;
 app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.use(express.urlencoded({extended: true}));
+app.use(express.static('public'));
 
 
 app.get('/', (req, res)=>{
@@ -48,12 +49,33 @@ app.post('/aduan', async (req, res)=>{
         nohp: req.body.nohp,
         kelas: req.body.kelas,
         aduan: [
-            {isi: req.body.isi}
+            {
+                isi: req.body.isi,
+                date: new Date(),
+            }
         ]
     });
     await dataBaru.save();
     res.redirect('/selesai');
 });
+
+app.get('/riwayat', async (req, res)=>{
+    const riwayatAduan = await aduan.find();
+    res.render('riwayat', {
+        title: 'Riwayat Aduan',
+        layout: 'layouts/main-layouts',
+        riwayatAduan
+    });
+});
+
+app.get('/detail/:id', async (req, res)=>{
+    const detailAduan = await aduan.findOne({_id: req.params.id});
+    res.render('detail', {
+        title: 'Detail Aduan',
+        layout: 'layouts/main-layouts',
+        detailAduan,
+    })
+})
 
 app.listen(port, ()=>{
     console.log('Listening On Port ', port);
