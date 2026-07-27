@@ -1,0 +1,37 @@
+<div class="container col-md-5 mt-5">
+    <h1>Ubah Data</h1>
+    <form action="/riwayat/edit/<%= data._id %>?_method=PUT" method="post">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required value="<%= data.email %>">
+        </div>
+        <div class="mb-3">
+            <label for="nama" class="form-label">Nama Lengkap</label>
+            <input type="text" class="form-control" id="nama" name="nama" required value="<%= data.nama %>">
+        </div>
+        <div class = "d-flex justify-content-center align-items-center gap-3">
+            <div class="mb-3">
+                <label for="nim" class="form-label">NIM</label>
+                <input type="text" class="form-control" id="nim" name="nim" required value="<%= data.nim %>">
+            </div>
+            <div class="mb-3">
+                <label for="nohp" class="form-label">Nomor Handphone</label>
+                <input type="text" class="form-control" id="nohp" name="nohp" required value="<%= data.nohp %>">
+            </div>
+            <div class="mb-3">
+            <label for="kelas" class="form-label">Kelas</label>
+            <input type="text" class="form-control" id="kelas" name="kelas" required placeholder="contoh: MI-4B" value="<%= data.kelas %>">
+        </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="aduan" class="form-label">Aduan</label>
+            <!-- <input type="text" class="form-control" id="aduan" name="aduan" required> -->
+             <% data.aduan.forEach(a => { %>
+                <textarea name="isi" id="isi" class = "form-control" rows="4" required><%= a.isi %></textarea>
+             <% }) %>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-secondary"><a href="/detail/<%= data._id %>" class="text-white text-decoration-none">Kembali</a></button>
+    </form>
+</div>

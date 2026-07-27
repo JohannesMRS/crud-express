@@ -14,6 +14,7 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('public'));
+app.use(methodOverride('_method'))
 
 
 app.get('/', (req, res)=>{
@@ -66,6 +67,51 @@ app.get('/riwayat', async (req, res)=>{
         layout: 'layouts/main-layouts',
         riwayatAduan
     });
+});
+
+
+// Delete Data
+app.delete('/riwayat', async (req, res)=>{
+    try{
+        await aduan.deleteOne({_id: req.body._id});
+        res.redirect('riwayat');
+    }catch(err){
+        console.error(err);
+    };
+});
+
+
+// Edit Data
+app.get('/riwayat/edit/:id', async (req, res)=>{
+    try{
+        const data = await aduan.findOne({_id: req.params.id});
+        res.render('edit', {
+            title: 'Halaman Edit',
+            layout: 'layouts/main-layouts',
+            data,
+        })
+    } catch(err){
+        console.error(err);
+    }
+});
+
+app.put('/riwayat/edit/:id', async(req, res)=>{
+    try{
+        // const {email} = req.body;
+        await aduan.findByIdAndUpdate({_id:req.params.id}, {
+            nama: req.body.nama,
+            email: req.body.email,
+            nim: req.body.nim,
+            nohp: req.body.nohp,
+            kelas: req.body.kelas,
+            aduan: {
+                isi: req.body.isi
+            }
+        });
+        res.redirect(`/detail/${req.params.id}`);
+    }catch(err){
+        console.error(err);
+    }
 });
 
 app.get('/detail/:id', async (req, res)=>{

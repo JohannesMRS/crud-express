@@ -49,10 +49,15 @@
                                 <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">Aduan</span>
                                 <small class="text-muted">
                                     <div class = "d-inline me-3">
-                                    <a href="" class = "me-1"><i class="bi bi-trash text-danger fs-6" data-bs-toggle="tooltip" data-bs-placement = "top" title="Hapus"></i></a>
-                                    <a href="" class = ""><i class="bi bi-pencil-square text-success fs-6" data-bs-toggle="tooltip" data-bs-placement = "top" title="Edit"></i></a>
+                                    <form action="/riwayat?_method=DELETE" method="post" class = "d-inline">
+                                        <input type="hidden" name="_id" id="id" value="<%= detailAduan._id %>">
+                                        <button type="submit" onclick="return confirm('Yakin?')" class = "btn btn-none">
+                                            <i class="bi bi-trash text-danger fs-6" data-bs-toggle="tooltip" data-bs-placement = "top" title="Hapus"></i>
+                                        </button>
+                                    </form>
+                                    <a href="/riwayat/edit/<%= detailAduan._id %>" class = ""><i class="bi bi-pencil-square text-success fs-6" data-bs-toggle="tooltip" data-bs-placement = "top" title="Edit"></i></a>
                                     </div>
-                                    <i class="bi bi-calendar3 me-1"></i> <%= a.date.toLocaleDateString('id-ID') %>
+                                        <%= a.date.toLocaleDateString('id-ID') %>
                                 </small>
                             </div>
                             <p class="mb-0 text-secondary" style="line-height: 1.6;">
