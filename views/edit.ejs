@@ -1,6 +1,7 @@
 <div class="container col-md-5 mt-5">
     <h1>Ubah Data</h1>
     <form action="/riwayat/edit/<%= data._id %>?_method=PUT" method="post">
+        <input type="hidden" name="id">
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" required value="<%= data.email %>">
